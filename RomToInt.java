@@ -1,49 +1,41 @@
 public class RomToInt {
-    private static int equalNumber(char roman) {
-        int value = 0;
-        switch(roman){
-            case 'I': 
-                value = 1;
-                break;
-            case 'V': 
-                value = 5;
-                break;
-            case 'X': 
-                value = 10;
-                break;
-            case 'L': 
-                value = 50;
-                break;
-            case 'C': 
-                value = 100;
-                break;
-            case 'D': 
-                value = 500;
-                break;
-            case 'M': 
-                value = 1000;
-                break;
+    // Method to return integer values of Roman numerals
+    private static int getRomanValue(char roman) {
+        switch (roman) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0; // Return 0 for invalid characters
         }
-
-        return value;
     }
 
+    // Convert Roman numeral to integer
     public static int romanToInt(String s) {
         int sum = 0;
-        for (int i = s.length(); i > -1; i--) {
-            if (i < s.length() - 1 && (equalNumber(s.charAt(i)) < equalNumber(s.charAt(i + 1)))) {
-                sum -= equalNumber(s.charAt(i));
-                continue;
+        int prevValue = 0;
+
+        // Loop from right to left
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int currentValue = getRomanValue(s.charAt(i));
+
+            // Subtract if the previous value is greater
+            if (currentValue < prevValue) {
+                sum -= currentValue;
+            } else {
+                sum += currentValue;
             }
 
-            sum += equalNumber(s.charAt(i));
+            prevValue = currentValue; // Update previous value
         }
 
         return sum;
     }
 
     public static void main(String[] args) {
-        RomToInt solution = new RomToInt();
         System.out.println(romanToInt("III")); // 3
         System.out.println(romanToInt("IV")); // 4
         System.out.println(romanToInt("IX")); // 9
