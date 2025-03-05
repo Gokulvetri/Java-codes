@@ -1,6 +1,6 @@
 public class MergeSort {
     public static void mergesort(int[] arr, int l, int r) {
-        int mid = (l + r) / 2;
+        int mid = l + (r-l) / 2;
         if (l < r) {
             mergesort(arr, l, mid);
             mergesort(arr, mid + 1, r);
@@ -15,12 +15,8 @@ public class MergeSort {
         int[] lArr = new int[n1];
         int[] rArr = new int[n2];
 
-        for (int x = 0; x < n1; x++) {
-            lArr[x] = arr[l + x];
-        }
-        for (int x = 0; x<n2;x++){
-            rArr[x] = arr[mid+x+1];
-        }
+        System.arraycopy(arr,l,lArr,0,n1);
+        System.arraycopy(arr,mid+1,rArr,0,n2);
         int i =0;
         int j =0;
         int k =l;
